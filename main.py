@@ -143,8 +143,45 @@ def resumo():
     l_sumario = Label(frameMeio, text="R$ {:,.2f}".format(valor[0]), width=215, height=1, anchor=NW,font=('Arial 17 '), bg=co1, fg = co4)
     l_sumario.place(x=309, y=70)
 
+
+
+    l_linha = Label(frameMeio, text="", width=215, height=1, anchor=NW, font=('Arial 1 '), bg='#545454')
+    l_linha.place(x=309, y=132)
+    l_sumario = Label(frameMeio, text="Total despesas Mensais      ".upper(),  anchor=NW,font=('Verdana 12 '), bg=co1, fg = '#83a9e6')
+    l_sumario.place(x=309, y=115)
+    l_sumario = Label(frameMeio, text="R$ {:,.2f}".format(valor[1]), width=215, height=1, anchor=NW,font=('Arial 17 '), bg=co1, fg = co4)
+    l_sumario.place(x=309, y=150)
+
+
+
+    l_linha = Label(frameMeio, text="", width=215, height=1, anchor=NW,font=('Arial 1 '), bg='#545454')
+    l_linha.place(x=309, y=207)
+    l_sumario = Label(frameMeio, text="Total saldo da caixa     ".upper(),  anchor=NW,font=('Verdana 12 '), bg=co1, fg = '#83a9e6')
+    l_sumario.place(x=309, y=190)
+    l_sumario = Label(frameMeio, text="R$ {:,.2f}".format(valor[2]), width=215, height=1, anchor=NW,font=('Arial 17 '), bg=co1, fg = co4)
+    l_sumario.place(x=309, y=220)
+
+# função grafico_pie():
+def grafico_pie():
+    figura = plt.Figure(figsize=(5, 3), dpi=90)
+    ax = figura.add_subplot(111)
+    
+    lista_valores = [345,225,534]
+    lista_categorias = ['Renda', 'Despesa', 'Saldo']
+
+    explode = []
+    for i in lista_categorias:
+        explode.append(0.05)
+
+    ax.pie(lista_valores, explode=explode, wedgeprops=dict(width=0.2), autopct='%1.1f%%', colors=colors,shadow=True, startangle=90)
+
+    ax.legend(lista_categorias, loc="center right", bbox_to_anchor=(1.55, 0.50))
+
+    canva_categoria = FigureCanvasTkAgg(figura, frameMeio)
+    canva_categoria.get_tk_widget().place(x=400, y=70)
 porcentagem()
 grafico_bar()
 resumo()
+grafico_pie()
 
 janela.mainloop()
