@@ -131,8 +131,20 @@ def grafico_bar():
 
 
 
+# função de resumo dos valores.........................
+
+def resumo():
+    valor = [500,600,420]
+
+    l_linha = Label(frameMeio, text="", width=215, height=1, anchor=NW, font=('Arial 1 '), bg='#545454')
+    l_linha.place(x=309, y=52)
+    l_sumario = Label(frameMeio, text="Total Renda Mensal      ".upper(),  anchor=NW,font=('Verdana 12 '), bg=co1, fg = '#83a9e6')
+    l_sumario.place(x=309, y=35)
+    l_sumario = Label(frameMeio, text="R$ {:,.2f}".format(valor[0]), width=215, height=1, anchor=NW,font=('Arial 17 '), bg=co1, fg = co4)
+    l_sumario.place(x=309, y=70)
 
 porcentagem()
 grafico_bar()
+resumo()
 
 janela.mainloop()
