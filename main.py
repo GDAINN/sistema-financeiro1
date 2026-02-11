@@ -185,4 +185,55 @@ grafico_bar()
 resumo()
 grafico_pie()
 
+
+# Criando frames dentro do Frame baixo 
+
+framerenda = Frame(framebaixo, width=300, height=250, bg=co1)
+framerenda.grid(row=0,column=0)
+
+frameoperacoes = Frame(framebaixo, width=220, height=250, bg=co1)
+frameoperacoes.grid(row=0,column=1, padx=5)
+
+frameconfiguracoes = Frame(framebaixo, width=220, height=250, bg=co1)
+frameconfiguracoes.grid(row=0,column=2,padx=5)
+
+# Tabela Renda Mensal
+
+app_tabela = Label(frameMeio, text="Tabela Receitas e Despesas",anchor=NW, font=('Verdana 12'), bg=co1, fg = co4)
+app_tabela.place(x=5,y=309)
+
+# função para mostrar renda
+def mostrar_renda():
+    tabela_head = ['#Id','Categoria','Data','Quantia']
+
+    lista_itens = [[0,2,3,4],[0,2,3,4],[0,2,3,4],[0,2,3,4]]
+    
+    global tree
+
+    tree = ttk.Treeview(framerenda, selectmode='extended',columns=tabela_head, show="headings")
+
+    vsb = ttk.Scrollbar(framerenda, orient="vertical", command=tree.yview)
+
+    hsb = ttk.Scrollbar(framerenda, orient="horizontal", command=tree.xview)
+
+    tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+
+    tree.grid(column=0, row=0, sticky='nsew')
+    vsb.grid(column=1, row=0, sticky='ns')
+    hsb.grid(column=0, row=1, sticky='ew')
+
+    hd=["center","center","center", "center"]
+    h=[30,100,100,100]
+    n=0
+
+    for col in tabela_head:
+        tree.heading(col, text=col.title(), anchor=CENTER)
+#adjust the column's width to the header string
+        tree.column(col, width=h[n],anchor=hd[n])
+        
+        n+=1
+
+    for item in lista_itens:
+        tree.insert('', 'end', values=item)
+mostrar_renda()
 janela.mainloop()
