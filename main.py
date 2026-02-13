@@ -12,6 +12,9 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 
+# Calendario 
+from tkcalendar import Calendar, DateEntry
+from datetime import date
 
 ################# cores ###############
 co0 = "#2e2d2b"  # Preta
@@ -236,4 +239,18 @@ def mostrar_renda():
     for item in lista_itens:
         tree.insert('', 'end', values=item)
 mostrar_renda()
+
+
+#Configurações despesas 
+
+l_info = Label(frameoperacoes, text='Insira novas despesas', height=1, anchor=NW, font=('Verdana 10 bold'), bg=co1, fg=co4)
+l_info.place(x=10,y=10)
+
+#categoria
+l_categoria = Label(frameoperacoes, text='Categoria', height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
+l_categoria.place(x=10,y=40)
+
+# Pegando categorias
+categoria_funcao = ['Viagens', 'Comida']
+
 janela.mainloop()
