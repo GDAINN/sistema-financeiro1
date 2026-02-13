@@ -252,5 +252,36 @@ l_categoria.place(x=10,y=40)
 
 # Pegando categorias
 categoria_funcao = ['Viagens', 'Comida']
+categoria = []
+
+for i in categoria_funcao:
+    categoria.append(i[1])
+
+combo_categoria_despesas = ttk.Combobox(frameoperacoes, width=10, font=('Ivy 10'))
+combo_categoria_despesas['values'] = categoria
+combo_categoria_despesas.place(x=110, y=41)
+
+#despesas
+l_cal_despesas = Label(frameoperacoes, text='Data', height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
+l_cal_despesas.place(x=10,y=70)
+e_cal_despesas = DateEntry(frameoperacoes,width=12, background='darkblue', foreground='white', borderwidth=2, year=2022)
+e_cal_despesas.place(x=110, y=71)
+
+# Valor
+l_valor_despesas = Label(frameoperacoes, text='Quantia Total', height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
+l_valor_despesas.place(x=10,y=100)
+
+e_valor_despesas = Entry(frameoperacoes, width=14,justify='left',relief='solid')
+e_valor_despesas.place(x=110, y=101)
+
+# Botão adicionar despesas
+img_add_despesas = Image.open('images.png')
+img_add_despesas = img_add_despesas.resize((45, 45))
+img_add_despesas = ImageTk.PhotoImage(img_add_despesas)
+
+
+botao_inserir_despesas = Button(frameoperacoes, image=img_add_despesas, width= 47, compound=LEFT, anchor=NW
+,font=('Ivy 7 bold'), bg=co1, fg = co0, overrelief=RIDGE)
+botao_inserir_despesas.place(x=110,y=131)
 
 janela.mainloop()
