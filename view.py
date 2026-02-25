@@ -1,31 +1,63 @@
-#importando SQLite
-
 import sqlite3 as lite
+import os
 
-#Criando conexão
-con = lite.connect('dados.db')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DB_PATH = os.path.join(BASE_DIR, "dados.db")
 
-# funções de Inserção......................................
+con = lite.connect(DB_PATH)
+
+with con:
+    cur = con.cursor()
+
+    # tabela categoria
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS categoria (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL
+        )
+    """)
+
+    # tabela receitas
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS receitas (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            categoria_id INTEGER,
+            adicionado_em TEXT,
+            valor REAL,
+            FOREIGN KEY (categoria_id) REFERENCES categoria(id)
+        )
+    """)
+
+    # tabela gastos
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS gastos (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            categoria_id INTEGER,
+            retirado_em TEXT,
+            valor REAL,
+            FOREIGN KEY (categoria_id) REFERENCES categoria(id)
+        )
+    """)
 
 #Inserir categoria
 def inserir_categoria(i):
     with con:
         cur = con.cursor()
-        query = "INSERT INTO Categoria (nome) VALUES (?)"
-        cur.execute(query,i)
+        query = "INSERT INTO categoria (nome) VALUES (?)"
+        cur.execute(query, i)
 
 #Inserir_receitas
 def inserir_receitas(i):
     with con:
         cur = con.cursor()
-        query = "INSERT INTO receitas (categoria, adicionado_em, valor) VALUES (?,?,?)"
+        query = "INSERT INTO receitas (categoria_id, adicionado_em, valor) VALUES (?,?,?)"
         cur.execute(query,i)
 
 #Inserir_gastos
 def inserir_gastos(i):
     with con:
         cur = con.cursor()
-        query = "INSERT INTO gastos (categoria, retirado_em, valor) VALUES (?,?,?)"
+        query = "INSERT INTO gastos (categoria_id, retirado_em, valor) VALUES (?,?,?)"
         cur.execute(query,i)
 
 # funções para deletar ....................................

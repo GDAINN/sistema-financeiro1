@@ -19,7 +19,7 @@ with con:
         CREATE TABLE IF NOT EXISTS receitas (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             categoria_id INTEGER,
-            adicionando_em TEXT,
+            adicionado_em TEXT,
             valor REAL,
             FOREIGN KEY (categoria_id) REFERENCES categoria(id)
         )

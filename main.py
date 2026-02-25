@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import Tk, ttk
+from tkinter import messagebox
 import os
 # importando Pillow
 
@@ -15,6 +16,9 @@ from matplotlib.figure import Figure
 # Calendario 
 from tkcalendar import Calendar, DateEntry
 from datetime import date
+
+# importando funcoes da view
+from view import inserir_categoria,ver_categoria, inserir_receitas,inserir_gastos
 
 ################# cores ###############
 co0 = "#2e2d2b"  # Preta
@@ -66,9 +70,42 @@ app_img = app_img.resize((45, 45))
 app_img = ImageTk.PhotoImage(app_img)
 
 
-app_logo = Label(framecima, image=app_img, text="Orçamento pessoal", width= 900, compound=LEFT, padx =5, relief=RAISED, anchor=NW
-,font=('Verdana 20 bold'), bg=co1, fg = co4)
+app_logo = Label(framecima, image=app_img, text="Orçamento pessoal", width=900, compound=LEFT, padx=5, relief=RAISED, anchor=NW, font=('Verdana 20 bold'), bg=co1, fg=co4)
 app_logo.place(x=0,y=0)
+
+#definindo tree como global
+global tree
+
+# função inserir categoria
+def inserir_categoria_b():
+    nome = e_categoria.get()
+
+    lista_inserir = [nome]
+
+    for i in lista_inserir:
+        if i == ' ':
+            messagebox.showerror('Erro', 'Preencha todos os campos categoria')
+            return
+        
+
+
+# Passando a,lista para a função inserir gastos presentes na view
+    inserir_categoria(lista_inserir)
+    messagebox.showinfo('Sucesso', 'Os dados foram inseridos com sucesso!')
+    e_categoria.delete(0,"end")
+
+
+
+
+# Pegando os valores da categoria 
+def atualizar_categorias():
+    categorias = ver_categoria()
+    lista = [i[1] for i in categorias]
+    combo_categoria_despesas['values'] = lista
+
+
+
+
 
 # porcentagem...........
 def porcentagem():
@@ -251,7 +288,7 @@ l_categoria = Label(frameoperacoes, text='Categoria', height=1, anchor=NW, font=
 l_categoria.place(x=10,y=40)
 
 # Pegando categorias
-categoria_funcao = ['Viagens', 'Comida']
+categoria_funcao = [ i[1] for i in ver_categoria()]
 categoria = categoria_funcao
 
 combo_categoria_despesas = ttk.Combobox(frameoperacoes, width=10, font=('Ivy 10'))
@@ -295,8 +332,7 @@ img_delete_path = os.path.join(BASE_DIR, 'apagar.png')
 img_delete = Image.open(img_delete_path)
 img_delete = img_delete.resize((45, 45))
 img_delete = ImageTk.PhotoImage(img_delete)
-botao_deletar = Button(frameoperacoes, image=img_delete, width= 47, compound=LEFT, anchor=NW
-,font=('Ivy 7 bold'), bg=co1, fg = co0, overrelief=RIDGE)
+botao_deletar = Button(frameoperacoes, image=img_delete, width=47, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co1, fg=co0, overrelief=RIDGE)
 botao_deletar.place(x=110,y=190)
 
 
@@ -327,8 +363,7 @@ img_add_receitas = Image.open(img_add_path)
 img_add_receitas = img_add_receitas.resize((45, 45))
 img_add_receitas = ImageTk.PhotoImage(img_add_receitas)
 
-botao_inserir_receitas = Button(frameconfiguracoes, image=img_add_receitas, width= 47, compound=LEFT, anchor=NW
-,font=('Ivy 7 bold'), bg=co1, fg = co0, overrelief=RIDGE)
+botao_inserir_receitas = Button(frameconfiguracoes, image=img_add_receitas, width=47, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co1, fg=co0, overrelief=RIDGE)
 botao_inserir_receitas.place(x=110,y=108)
 
 #Operação Nova categoria 
@@ -344,7 +379,6 @@ img_add_categoria = Image.open(img_add_path)
 img_add_categoria = img_add_categoria.resize((45, 45))
 img_add_categoria = ImageTk.PhotoImage(img_add_categoria)
 
-botao_inserir_categoria = Button(frameconfiguracoes, image=img_add_categoria, width= 47, compound=LEFT, anchor=NW
-,font=('Ivy 7 bold'), bg=co1, fg = co0, overrelief=RIDGE)
+botao_inserir_categoria = Button(frameconfiguracoes, command=inserir_categoria_b, image=img_add_categoria, width=47, compound=LEFT, anchor=NW, font=('Ivy 7 bold'), bg=co1, fg=co0, overrelief=RIDGE)
 botao_inserir_categoria.place(x=110,y=190)
 janela.mainloop()
